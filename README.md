@@ -1,43 +1,8 @@
-# متجر بابا صالح للملابس الجاهزة
+# Baba Saleh Store — full handoff package
 
-متجر إلكتروني كامل (واجهة عملاء + لوحة تحكم) مبني بـ Node.js + Express + SQLite.
-شغال بالعربي RTL، موبايل-فرست، والتصميم مطابق للنموذج المعتمد.
+Complete store: Arabic RTL storefront + admin panel + SQLite database (Node.js).
 
-## التشغيل محليا
+**Start here: [README-AR.md](README-AR.md)** — full Arabic setup guide: hosting requirements (Node 22+, tested on Node 22; current LTS is Node 26), run steps, Docker, owner settings to fill, backup, and demo-mode flags.
 
-```bash
-npm install
-ADMIN_PASSWORD='كلمة-سر-قوية' node server.js
-```
-
-المتجر على `http://localhost:3100` ولوحة التحكم على `/admin`.
-
-## متغيرات البيئة
-
-| متغير | الوظيفة | الافتراضي |
-|---|---|---|
-| `PORT` | بورت السيرفر | `3100` |
-| `ADMIN_PASSWORD` | باسورد لوحة التحكم — **لازم يتغير عند النشر** | `admin123` |
-| `DATA_DIR` | مجلد قاعدة البيانات والصور المرفوعة | مجلد المشروع |
-| `DEV_ROUTES` | روابط تجريبية للتطوير فقط — **ممنوع تفعيلها في النشر** | مطفي |
-
-## قبل النشر (مهم)
-
-1. حدد `ADMIN_PASSWORD` قوي.
-2. من لوحة التحكم ← الإعدادات: حط رقم الواتساب الحقيقي، رقم فودافون كاش، واسم/حساب انستاباي (الموجودين دلوقتي أرقام تجريبية).
-3. امسح منتجات البذرة التجريبية وضيف منتجاتك الحقيقية بالصور من لوحة التحكم.
-4. راجع مصاريف الشحن في الإعدادات (الافتراضي ٨٠ ج).
-
-## النشر (Railway كمثال)
-
-1. ارفع المشروع على GitHub.
-2. في Railway: New Project ← Deploy from GitHub.
-3. ضيف Volume وخليه يشاور على مجلد (مثلا `/data`) وحدد `DATA_DIR=/data` — ده بيحفظ قاعدة البيانات والصور مع كل إعادة نشر.
-4. حدد `ADMIN_PASSWORD` في متغيرات البيئة.
-5. اربط الدومين من إعدادات المشروع.
-
-## اللي موجود
-
-- واجهة: رئيسية، أقسام، ماركات، بحث، صفحة منتج، سلة، تشيك-آوت (الدفع عند الاستلام أو تحويل مع رفع صورة التحويل)، صفحة تأكيد الطلب برقم الطلب، زر واتساب عائم.
-- لوحة تحكم: إحصائيات، إدارة منتجات (إضافة/تعديل/حذف/صور/مقاسات/مخزون/عروض)، إدارة طلبات (حالات الطلب)، إعدادات (اسم المحل، واتساب، شحن، أرقام التحويل).
-- الشحن بيتحسب شفاف: منتجات + شحن = الإجمالي، من غير رسوم مخفية.
+Quick start: `npm install --omit=dev && ADMIN_PASSWORD=<choose> PORT=3000 node server.js`
+Admin panel at `/admin`. Payments are COD + manual transfer only (no card gateway).

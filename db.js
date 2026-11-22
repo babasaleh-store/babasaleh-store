@@ -86,6 +86,9 @@ function seed() {
     };
     for (const [k, v] of Object.entries(defaults)) setSetting.run(k, v);
   }
+  // Demo products are seeded ONLY for the preview build (SEED_DEMO=1).
+  // A real deployment starts with an empty catalog the owner fills from admin.
+  if (process.env.SEED_DEMO !== '1') return;
   const count = db.prepare('SELECT COUNT(*) c FROM products').get().c;
   if (count > 0) return;
   const ins = db.prepare(`INSERT INTO products (name,brand,category,price,old_price,description,sizes,colors,stock,tint,icon,is_offer,is_new)

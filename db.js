@@ -91,17 +91,17 @@ function seed() {
   const ins = db.prepare(`INSERT INTO products (name,brand,category,price,old_price,description,sizes,colors,stock,tint,icon,is_offer,is_new)
     VALUES (@name,@brand,@category,@price,@old_price,@description,@sizes,@colors,@stock,@tint,@icon,@is_offer,@is_new)`);
   const demo = [
-    { name:'طقم حمالة وبوكسر رجالي', brand:'دايس', category:'رجالي', price:235, old_price:275, tint:'t1', icon:'i-tee', is_offer:1, is_new:0,
+    { name:'حمالة قطن رجالي', brand:'دايس', category:'رجالي', price:235, old_price:275, tint:'t1', icon:'i-tee', is_offer:1, is_new:0,
       description:'طقم قطن مريح للاستخدام اليومي، خامة تقيلة تتحمل الغسيل.' },
     { name:'فانلة داخلية قطن رجالي', brand:'قطونيل', category:'رجالي', price:185, old_price:null, tint:'t2', icon:'i-tee', is_offer:0, is_new:0, description:'فانلة قطن ١٠٠٪ ناعمة على الجلد.' },
-    { name:'طقم حريمي قطن ٣ قطع', brand:'نواعم', category:'حريمي', price:325, old_price:375, tint:'t3', icon:'i-dress', is_offer:1, is_new:0, description:'طقم بيتي قطن مريح، ٣ قطع.' },
-    { name:'بوكسر أولادي ٣ قطع', brand:'عثمان', category:'أولادي', price:155, old_price:null, tint:'t4', icon:'i-kid', is_offer:0, is_new:0, description:'بوكسر قطن أولادي، عبوة ٣ قطع.' },
-    { name:'فانلة كت رجالي', brand:'لاسو', category:'رجالي', price:165, old_price:null, tint:'t5', icon:'i-tee', is_offer:0, is_new:1, description:'فانلة كت خفيفة للصيف والبيت.' },
+    { name:'طقم حريمي مخطط قطعتين', brand:'نواعم', category:'حريمي', price:325, old_price:375, tint:'t3', icon:'i-dress', is_offer:1, is_new:0, description:'طقم بيتي حريمي مخطط، بلوزة وبنطلون.' },
+    { name:'طقم أولادي قطن', brand:'عثمان', category:'أولادي', price:155, old_price:null, tint:'t4', icon:'i-kid', is_offer:0, is_new:0, description:'طقم أولادي قطن مريح للبيت واللعب.' },
+    { name:'فانلة قطن رجالي', brand:'لاسو', category:'رجالي', price:165, old_price:null, tint:'t5', icon:'i-tee', is_offer:0, is_new:1, description:'فانلة قطن رجالي ناعمة، متاحة بألوان.' },
     { name:'طقم بيتي حريمي شتوي', brand:'لوليتا', category:'حريمي', price:425, old_price:null, tint:'t6', icon:'i-dress', is_offer:0, is_new:1, description:'طقم بيتي شتوي دافئ.' },
     { name:'طقم قطن كامل رجالي', brand:'سيما', category:'رجالي', price:295, old_price:325, tint:'t3', icon:'i-tee', is_offer:1, is_new:0, description:'طقم قطن كامل بخامة ممتازة.' },
     { name:'طقم داخلي شتوي رجالي', brand:'الدباغ', category:'رجالي', price:340, old_price:null, tint:'t6', icon:'i-tee', is_offer:0, is_new:0, description:'طقم داخلي شتوي ثقيل.' },
-    { name:'بوكسر رجالي ٣ قطع', brand:'عثمان', category:'رجالي', price:175, old_price:null, tint:'t4', icon:'i-tee', is_offer:0, is_new:0, description:'بوكسر قطن رجالي، عبوة ٣ قطع.' },
-    { name:'طقم ميلك حريمي', brand:'ميلك', category:'حريمي', price:295, old_price:null, tint:'t2', icon:'i-dress', is_offer:0, is_new:1, description:'طقم قطن حريمي ناعم.' },
+    { name:'بوكسر رجالي', brand:'عثمان', category:'رجالي', price:175, old_price:null, tint:'t4', icon:'i-tee', is_offer:0, is_new:0, description:'بوكسر قطن رجالي مريح.' },
+    { name:'بيجامة ساتان حريمي', brand:'ميلك', category:'حريمي', price:295, old_price:null, tint:'t2', icon:'i-dress', is_offer:0, is_new:1, description:'بيجامة ساتان حريمي ناعمة.' },
   ];
   const sizes = JSON.stringify(['M','L','XL','2XL','3XL']);
   const colors = JSON.stringify(['#2b3a4a','#8a939e','#f3f3f3','#5b3a3a']);

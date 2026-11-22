@@ -43,8 +43,10 @@
 </nav>
 
 <style>#demoToast{display:none;position:fixed;bottom:90px;inset-inline:16px;background:#7a5c00;color:#fff;padding:.9rem 1rem;border-radius:.7rem;text-align:center;z-index:9999;font-size:.9rem;line-height:1.6}</style>
-<div id="demoToast">هذه نسخة معاينة للتصفح فقط — إضافة منتجات للسلة وإرسال الطلبات والبحث ولوحة التحكم غير مفعّلة هنا. النسخة الكاملة قريب بإذن الله.</div>
+<div id="demoToast">هذه نسخة معاينة للتصفح فقط — إضافة منتجات للسلة وإرسال الطلبات والبحث ولوحة التحكم وروابط واتساب غير مفعّلة هنا.</div>
 <script>
-document.addEventListener('submit',function(e){e.preventDefault();var t=document.getElementById('demoToast');t.style.display='block';setTimeout(function(){t.style.display='none'},4000)});
+function showDemoToast(e){if(e)e.preventDefault();var t=document.getElementById('demoToast');t.style.display='block';setTimeout(function(){t.style.display='none'},4000)}
+document.addEventListener('submit',showDemoToast);
+document.addEventListener('click',function(e){var a=e.target.closest('a[href^="https://wa.me"]');if(a)showDemoToast(e)});
 </script>
 </body></html>

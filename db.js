@@ -82,7 +82,7 @@ function seed() {
       shipping_fee: '80',
       whatsapp: '201000000000', // placeholder until the owner sets his real number in admin
       transfer_info: 'فودافون كاش / انستاباي — الرقم هيتظهر هنا من لوحة التحكم',
-      hours: 'كل يوم من ١٠ ص لـ١١ م',
+      hours: '',
     };
     for (const [k, v] of Object.entries(defaults)) setSetting.run(k, v);
   }

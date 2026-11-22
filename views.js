@@ -1,4 +1,4 @@
-const DEMO_BANNER = `<div class="demo-banner">نسخة معاينة تجريبية للتصفح فقط — المنتجات والأسعار والطلبات بيانات تجريبية وليست حقيقية.</div>`;
+const DEMO_BANNER = `<div class="demo-banner">نسخة معاينة تجريبية للتصفح فقط — المنتجات والأسعار والطلبات والصور كلها بيانات وصور توضيحية وليست حقيقية.</div>`;
 // views.js - server-rendered Arabic RTL pages for Baba Saleh store
 const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
 const ar = (v) => String(v).replace(/[0-9]/g, (d) => AR_DIGITS[+d]);
@@ -128,7 +128,7 @@ function home(data) {
 <div class="hero"><img class="heroimg" src="/assets/hero.jpg" alt="" loading="eager"><div class="heroov"></div>
   <div class="heroin"><span class="tag">وصل حديثًا</span>
   <h1>تشكيلة الشتاء وصلت</h1>
-  <p>خصومات على دايس وقطونيل ولاسو — أطقم أصلية بخامات قطنية مريحة، والدفع عند الاستلام</p>
+  <p>خصومات على دايس وقطونيل ولاسو — خامات مريحة وأسعار مناسبة، والدفع عند الاستلام</p>
   <a class="cta" href="/c/عروض">اتفرّج على العروض<svg class="ic"><use href="#i-arrow"/></svg></a>
 </div></div>
 <div class="sec"><div class="sechead"><h2>أقسام المحل</h2></div>
@@ -142,9 +142,9 @@ ${offers.length ? `<div class="sec"><div class="sechead"><h2>عروض الأسب
 ${fresh.length ? `<div class="sec"><div class="sechead"><h2>وصل حديثًا</h2></div>
   <div class="grid">${fresh.map(prodCard).join('')}</div></div>` : ''}
 <div class="trust">
-  <div class="ti"><svg class="ic"><use href="#i-swap"/></svg><span>استبدال خلال ١٤ يوم</span></div>
-  <div class="ti"><svg class="ic"><use href="#i-truck"/></svg><span>شحن لكل المحافظات</span></div>
   <div class="ti"><svg class="ic"><use href="#i-cash"/></svg><span>الدفع عند الاستلام</span></div>
+  <div class="ti"><svg class="ic"><use href="#i-truck"/></svg><span>توصيل للمنازل</span></div>
+  <div class="ti"><svg class="ic"><use href="#i-phone"/></svg><span>اطلب من الموقع أو واتساب</span></div>
 </div>
 <div class="mfooter"><b>${esc(settings.store_name)} ${esc(settings.store_tagline)}</b><br>${esc(settings.hours)}<br>عندك سؤال؟ <a href="${waLink(settings)}" style="color:var(--green);font-weight:700">كلمنا واتساب</a> في أي وقت</div>`;
   return layout(settings.store_name, body, settings, 'home', cartCount);
@@ -193,8 +193,8 @@ function productPage(data) {
   </form>
   ${p.description ? `<div class="pcard"><h3>الوصف</h3><p>${esc(p.description)}</p></div>` : ''}
   <div class="pcard">
-    <div class="prow"><svg class="ic"><use href="#i-truck"/></svg><span>شحن <b>${money(settings.shipping_fee)}</b> لكل المحافظات • التسليم خلال ٢ لـ ٤ أيام</span></div>
-    <div class="prow"><svg class="ic"><use href="#i-swap"/></svg><span>استبدال المقاس خلال <b>١٤ يوم</b> من الاستلام</span></div>
+    <div class="prow"><svg class="ic"><use href="#i-truck"/></svg><span>شحن <b>${money(settings.shipping_fee)}</b> — يُضاف للإجمالي عند إتمام الطلب</span></div>
+    <div class="prow"><svg class="ic"><use href="#i-cash"/></svg><span>الدفع <b>عند الاستلام</b> أو بتحويل فودافون كاش / انستاباي</span></div>
   </div>
   ${similar.length ? `<div class="plabel" style="margin-top:6px">منتجات مشابهة</div><div class="similar">${similar.map(prodCard).join('')}</div>` : ''}
 </div>

@@ -52,7 +52,10 @@ document.addEventListener('click',function(e){var a=e.target.closest('a[href^="h
 </script>
 """
 
+STAMP = str(int(time.time()))
+
 def rewrite(html):
+    html = html.replace('href="/style.css"', f'href="{PREFIX}/style.css?v={STAMP}"')
     def rep(m):
         attr, val = m.group(1), m.group(2)
         if val == "/":

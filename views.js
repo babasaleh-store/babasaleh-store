@@ -1,3 +1,4 @@
+const DEMO_BANNER = `<div class="demo-banner">نسخة معاينة تجريبية للتصفح فقط — المنتجات والأسعار والطلبات بيانات تجريبية وليست حقيقية.</div>`;
 // views.js - server-rendered Arabic RTL pages for Baba Saleh store
 const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
 const ar = (v) => String(v).replace(/[0-9]/g, (d) => AR_DIGITS[+d]);
@@ -80,6 +81,7 @@ function layout(title, body, settings, active, cartCount) {
 <link rel="stylesheet" href="/style.css"><title>${esc(title)} - ${esc(settings.store_name)}</title></head><body>
 ${ICONS}
 ${topbar(settings, cartCount)}
+${DEMO_BANNER}
 ${body}
 ${waFloat(settings)}
 ${bottomnav(active, cartCount)}
@@ -97,6 +99,7 @@ ${ICONS}
   <h1>${esc(title)}</h1>
   <a class="iconbtn" href="/cart"><svg class="ic"><use href="#i-cart"/></svg>${cartCount ? `<span class="bdg">${ar(cartCount)}</span>` : ''}</a>
 </header>
+${DEMO_BANNER}
 ${body}
 ${waFloat(settings)}
 ${bottomnav(active, cartCount)}
@@ -289,6 +292,7 @@ function admLayout(title, body, active) {
 ${ICONS}<div class="adm">
 <div class="adm-top"><b>لوحة تحكم ${esc(title)}</b><span style="margin-inline-start:auto"></span><a href="/" target="_blank">المتجر ↗</a><a href="/admin/logout">خروج</a></div>
 <div class="adm-nav">${link('/admin', 'الرئيسية', 'dash')}${link('/admin/products', 'المنتجات', 'products')}${link('/admin/orders', 'الطلبات', 'orders')}${link('/admin/settings', 'الإعدادات', 'settings')}</div>
+<div class="demo-banner">وضع المعاينة التجريبية: البيانات قد تُحذف عند إعادة تشغيل الاستضافة المجانية — لا تضف منتجاتك الحقيقية هنا بعد.</div>
 ${body}</div></body></html>`;
 }
 

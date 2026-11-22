@@ -55,7 +55,6 @@ document.addEventListener('click',function(e){var a=e.target.closest('a[href^="h
 STAMP = str(int(time.time()))
 
 def rewrite(html):
-    html = html.replace('href="/style.css"', f'href="{PREFIX}/style.css?v={STAMP}"')
     def rep(m):
         attr, val = m.group(1), m.group(2)
         if val == "/":
@@ -68,6 +67,7 @@ def rewrite(html):
             return f'{attr}="#"'
         return f'{attr}="{PREFIX}/' + urllib.parse.quote(fname(val)) + '"'
     html = re.sub(r'(href|src)="(/[^"#]*)"', rep, html)
+    html = html.replace(f'href="{PREFIX}/style.css"', f'href="{PREFIX}/style.css?v={STAMP}"')
     html = html.replace('action="/search"', 'action="#"').replace('action="/cart/add"', 'action="#"').replace('action="/checkout"', 'action="#"').replace('action="/admin/login"', 'action="#"').replace('action="/cart/update"', 'action="#"')
     html = html.replace("</body>", TOAST + "</body>")
     return html

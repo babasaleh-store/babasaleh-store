@@ -12,6 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 const DATA_DIR = process.env.DATA_DIR || __dirname;
 app.use('/uploads', express.static(path.join(DATA_DIR, 'uploads')));
+// Demo-only sample photography: served at /uploads/samples/* and applied to seed
+// products ONLY when SAMPLE_PHOTOS=1 (the static preview build). The real store
+// never sets this flag, so he keeps adding his own product photos as before.
+const SAMPLE_PHOTOS = !!process.env.SAMPLE_PHOTOS;
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'sample-uploads')));
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -51,13 +56,13 @@ const cartCount = (req) => readCart(req).reduce((a, x) => a + x.qty, 0);
 
 const prodById = db.prepare('SELECT * FROM products WHERE id=? AND active=1');
 const photoOf = db.prepare('SELECT file FROM product_photos WHERE product_id=? ORDER BY position LIMIT 1');
-const withPhoto = (p) => ({ ...p, photo: photoOf.get(p.id)?.file || null });
+const withPhoto = (p) => ({ ...p, photo: photoOf.get(p.id)?.file || (SAMPLE_PHOTOS ? `samples/p${p.id}.jpg` : null) });
 
 function cartItems(req) {
   return readCart(req).map((x) => {
     const p = prodById.get(x.id);
     if (!p) return null;
-    return { key: `${x.id}|${x.size || ''}|${x.color || ''}`, id: p.id, name: p.name, brand: p.brand, price: p.price, tint: p.tint, icon: p.icon, photo: photoOf.get(p.id)?.file || null, size: x.size || '', color: x.color || '', qty: Math.min(x.qty, 99) };
+    return { key: `${x.id}|${x.size || ''}|${x.color || ''}`, id: p.id, name: p.name, brand: p.brand, price: p.price, tint: p.tint, icon: p.icon, photo: photoOf.get(p.id)?.file || (SAMPLE_PHOTOS ? `samples/p${p.id}.jpg` : null), size: x.size || '', color: x.color || '', qty: Math.min(x.qty, 99) };
   }).filter(Boolean);
 }
 
@@ -102,7 +107,8 @@ app.get('/p/:id', (req, res) => {
   const s = settings();
   const p = prodById.get(req.params.id);
   if (!p) return res.redirect('/');
-  const photos = db.prepare('SELECT * FROM product_photos WHERE product_id=? ORDER BY position').all(p.id);
+  let photos = db.prepare('SELECT * FROM product_photos WHERE product_id=? ORDER BY position').all(p.id);
+  if (SAMPLE_PHOTOS && !photos.length) photos = [{ file: `samples/p${p.id}.jpg` }];
   const similar = db.prepare('SELECT * FROM products WHERE active=1 AND category=? AND id != ? LIMIT 3').all(p.category, p.id).map(withPhoto);
   res.send(V.productPage({ settings: s, p, photos, similar, cartCount: cartCount(req) }));
 });
@@ -304,4 +310,7 @@ if (process.env.DEV_ROUTES === '1') {
 }
 
 const port = process.env.PORT || 3100;
-app.listen(port, () => console.log(`Baba Saleh store on http://localhost:${port}`));
+if (require.main === module) {
+  app.listen(port, () => console.log('listening on ' + port));
+}
+module.exports = app;

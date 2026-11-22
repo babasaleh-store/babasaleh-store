@@ -56,7 +56,7 @@ function topbar(settings, cartCount) {
       <a href="${waLink(settings)}" target="_blank" rel="noopener">كلمنا واتساب</a>
     </div>
   </details>
-  <a class="logo" href="/"><b>${esc(settings.store_name)}</b><span>${esc(settings.store_tagline)}</span></a>
+  <nav class="toplinks"><a href="/c/%D8%B1%D8%AC%D8%A7%D9%84%D9%8A">رجالي</a><a href="/c/%D8%AD%D8%B1%D9%8A%D9%85%D9%8A">حريمي</a><a href="/c/%D8%A3%D9%88%D9%84%D8%A7%D8%AF%D9%8A">أولادي</a><a href="/c/%D8%A8%D9%8A%D8%AA%D9%8A">بيتي</a><a href="/c/%D8%B9%D8%B1%D9%88%D8%B6">العروض</a></nav><a class="logo" href="/"><b>${esc(settings.store_name)}</b><span>${esc(settings.store_tagline)}</span></a>
   <a class="iconbtn" href="/cart"><svg class="ic"><use href="#i-cart"/></svg>${cartCount ? `<span class="bdg">${ar(cartCount)}</span>` : ''}</a>
 </header>`;
 }
@@ -78,6 +78,8 @@ function waFloat(settings) {
 function layout(title, body, settings, active, cartCount) {
   return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css"><title>${esc(title)} - ${esc(settings.store_name)}</title></head><body>
 ${ICONS}
 ${topbar(settings, cartCount)}
@@ -92,6 +94,8 @@ ${bottomnav(active, cartCount)}
 function innerLayout(title, body, settings, active, cartCount) {
   return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css"><title>${esc(title)} - ${esc(settings.store_name)}</title></head><body>
 ${ICONS}
 <header class="pagehead">
@@ -114,21 +118,21 @@ function prodCard(p) {
     ${photo ? `<img src="/uploads/${esc(photo)}" alt="${esc(p.name)}" loading="lazy">` : `<svg><use href="#${p.icon}"/></svg>`}</a>
     <div class="info"><h3><a href="/p/${p.id}">${esc(p.name)}${p.brand ? ` — ${esc(p.brand)}` : ''}</a></h3>
       <div class="pricerow"><span class="price">${money(p.price)}</span>${p.old_price ? `<span class="old">${ar(p.old_price)}</span>` : ''}
-      <form method="post" action="/cart/add" style="margin-inline-start:auto"><input type="hidden" name="product_id" value="${p.id}"><button class="addbtn" aria-label="أضف للسلة"><svg class="ic"><use href="#i-plus"/></svg></button></form></div></div></div>`;
+      <form method="post" action="/cart/add" style="margin-inline-start:auto"><input type="hidden" name="product_id" value="${p.id}"><button class="addbtn" aria-label="أضف للسلة"><svg class="ic"><use href="#i-plus"/></svg><span>أضف للسلة</span></button></form></div></div></div>`;
 }
 
 function home(data) {
   const { settings, offers, fresh, brands, cartCount } = data;
   const body = `
 <div class="searchwrap"><a class="search" href="/search"><svg class="ic"><use href="#i-search"/></svg>دوّر على فانلة، طقم، ماركة…</a></div>
-<div class="hero">
-  <span class="tag">وصل حديثًا</span>
+<div class="hero"><img class="heroimg" src="/assets/hero.jpg" alt="" loading="eager"><div class="heroov"></div>
+  <div class="heroin"><span class="tag">وصل حديثًا</span>
   <h1>تشكيلة الشتاء وصلت</h1>
-  <p>خصومات على دايس وقطونيل ولاسو</p>
+  <p>خصومات على دايس وقطونيل ولاسو — أطقم أصلية بخامات قطنية مريحة، والدفع عند الاستلام</p>
   <a class="cta" href="/c/عروض">اتفرّج على العروض<svg class="ic"><use href="#i-arrow"/></svg></a>
-</div>
+</div></div>
 <div class="sec"><div class="sechead"><h2>أقسام المحل</h2></div>
-  <div class="cats">${CATS.map((c) => `<a class="cat" href="/c/${encodeURIComponent(c.slug)}"><div class="circ ${c.cls}"><svg class="ic"><use href="#${c.icon}"/></svg></div><span>${c.slug}</span></a>`).join('')}</div>
+  <div class="cats">${CATS.map((c) => `<a class="cat" href="/c/${encodeURIComponent(c.slug)}"><div class="circ ${c.cls}"><img class="catph" src="/assets/cat-${c.cls}.jpg" alt="" loading="lazy"></div><span>${c.slug}</span></a>`).join('')}</div>
 </div>
 <div class="sec"><div class="sechead"><h2>تسوّق بالماركة</h2></div>
   <div class="brands">${brands.map((b) => `<a class="chip" href="/brand/${encodeURIComponent(b)}">${esc(b)}</a>`).join('')}</div>
@@ -288,6 +292,8 @@ function admLayout(title, body, active) {
   const link = (href, label, key) => `<a class="${active === key ? 'on' : ''}" href="${href}">${label}</a>`;
   return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css"><title>${esc(title)} - لوحة التحكم</title></head><body>
 ${ICONS}<div class="adm">
 <div class="adm-top"><b>لوحة تحكم ${esc(title)}</b><span style="margin-inline-start:auto"></span><a href="/" target="_blank">المتجر ↗</a><a href="/admin/logout">خروج</a></div>
@@ -422,6 +428,8 @@ function admSettings(s, flash) {
 function admLogin(error) {
   return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css"><title>دخول لوحة التحكم</title></head><body>
 ${ICONS}
 <form class="loginwrap" method="post" action="/admin/login">

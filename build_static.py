@@ -59,6 +59,8 @@ def rewrite(html):
             return f'{attr}="{PREFIX}/"'
         if val == "/style.css":
             return f'{attr}="{PREFIX}/style.css"'
+        if val.startswith("/assets/") or val.startswith("/uploads/samples/"):
+            return f'{attr}="{PREFIX}{urllib.parse.quote(val)}"'
         if SKIP.match(val):
             return f'{attr}="#"'
         return f'{attr}="{PREFIX}/' + urllib.parse.quote(fname(val)) + '"'
@@ -74,4 +76,8 @@ for path, html in pages.items():
     print("OK", path, "->", fname(path))
 
 shutil.copy("/downloads/babasaleh-store/public/style.css", os.path.join(OUT, "style.css"))
+# demo design + sample photos (SAMPLE_PHOTOS build only; never his real catalog)
+shutil.copytree("/downloads/babasaleh-store/public/assets", os.path.join(OUT, "assets"))
+os.makedirs(os.path.join(OUT, "uploads"), exist_ok=True)
+shutil.copytree("/downloads/babasaleh-store/public/sample-uploads/samples", os.path.join(OUT, "uploads", "samples"))
 print("pages:", len(pages))
